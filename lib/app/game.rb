@@ -15,19 +15,24 @@ class Game
     @j1 = Player.new(l, "X")
     @j2 = Player.new(u, "O")
 
-    b = [a1 = " ", a2 = " ",a3 = " ", b1 = " ", b2 = " ", b3 = " ", c1 = " ", c2 = " ", c3 = " "]
- i = 0
-    already_did = ["A1","A2","A3","B1","B2","B3","C1","C2","C3"]
+      i = 0
+      wq = 0
 	 
-	 while i < 50
-				puts "Voici le board"
+
+         while wq == 0	
+     b = [a1 = " ", a2 = " ",a3 = " ", b1 = " ", b2 = " ", b3 = " ", c1 = " ", c2 = " ", c3 = " "]
+
+     already_did = ["A1","A2","A3","B1","B2","B3","C1","C2","C3"]
+	 while i < 200
+	   puts "Voici le board"
      print b[0..2]
      print "\n"
      print b[3..5]
      print "\n"
      print b[6..8]
      print "\n"
- ############----------------------------------------
+    
+    
     puts "a toi de jouer #{@j1.name}"
     sp = gets.chomp.upcase
        while not  already_did.include?(sp)
@@ -68,6 +73,11 @@ class Game
 	   break
      end
 
+     if i == 4 || i == 9 || i == 14 || i == 19
+     puts "=========== MATCH NUL ============="
+       break
+     end
+
      puts "a toi de jouer #{@j2.name}"
 	sp = gets.chomp.upcase
 	while not already_did.include?(sp)
@@ -98,8 +108,20 @@ class Game
 	b[2] == "O" && b[4] == "O" && b[6] == "O"
 	  print "======================VICTOIRE DE #{@j2.name} ======================="
 	   break
+     
+          end
+     i = i + 1
+     already_did.delete_if(&:empty?)
      end
+  	i = i + 1
+  	puts "veux tu recommencer y pour oui n pour non"
+	reco = gets.chomp
+	if reco == "y"
+ 	 wq = 0
+	else
+	 wq = 1
+	end
+    end
   end
-end
 end
 Game.new.start
